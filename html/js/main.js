@@ -29,6 +29,8 @@ function initialize( fixtures ) {
 
 		console.log('fetched text', textFixture);
 	} );
+
+	fixtureSelect.focus();
 }
 
 function addListeners( fixtures ) {
@@ -39,18 +41,33 @@ function addListeners( fixtures ) {
 	for ( const fixtureName of fixtures ) {
 		fixtureSelect.options.add( new Option( fixtureName, fixtureName ) );
 	}
+
+	document.getElementById( 'download-button' ).addEventListener( 'click', function() {
+		downloadCanvas( document.getElementById( 'canvasElement' ), 'download.png' );
+	} );
 }
 
 function setCanvasText( canvas, textToBeWritten ) {
 	const ctx = canvas.getContext( '2d' );
 
-	ctx.clearRect( 0, 0, CANVAS_SIZE.width, CANVAS_SIZE.height );
+	// Make sure to give it some background, otherwise text will be on transparent bg in png files which could
+	// complicate seeing it in dark mode :)
+	ctx.fillStyle = 'white';
+	ctx.fillRect( 0, 0, CANVAS_SIZE.width, CANVAS_SIZE.height );
+	ctx.fillStyle = 'black';
 
 	applyStandardFontSettings( ctx );
 	fillMultilineText( ctx, textToBeWritten, CANVAS_SIZE.width - 20, 10 );
 
 	return textToBeWritten;
 }
+
+function downloadCanvas( canvas, filename ) {
+	const link = document.createElement( 'a' );
+	link.download = filename;
+	link.href = canvas.toDataURL( 'image/png' );
+	link.click();
+};
 
 // A primitive implementation of filling a given context with text.
 function fillMultilineText( ctx, text, maxWidth, xMargin ) {
