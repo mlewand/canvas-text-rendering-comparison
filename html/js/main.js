@@ -1,7 +1,8 @@
+const CANVAS_SIZE = { width: 1000, height: 5000 };
 
-document.addEventListener( 'DOMContentLoaded', function() {
+document.addEventListener( 'DOMContentLoaded', async function() {
 	const DPI_RATIO = 3;
-	const CANVAS_SIZE = { width: 1000, height: 5000 };
+	const fixtures = [ 'dummy-short', 'lorem-ipsum-short', 'english-long' ];
 	const textToBeWritten = 'Hello World Nisi nisi veniam consequat nulla dolor. Nostrud cillum deserunt aliquip. Nulla duis amet irure ad sunt consequat eu eiusmod veniam labore. Excepteur commodo incididunt in nulla dolor commodo velit. Sit labore magna occaecat ex esse in duis est consequat mollit elit proident proident. Officia sunt exercitation reprehenderit ad sint amet dolor consequat esse et pariatur aliqua.!';
 
 	const canvas = document.getElementById( 'canvasElement' );
@@ -11,10 +12,45 @@ document.addEventListener( 'DOMContentLoaded', function() {
 
 	changeResolution( canvas, DPI_RATIO );
 
+	setCanvasText( canvas, textToBeWritten );
+
+
+	addListeners( fixtures );
+	initialize( fixtures );
+} );
+
+function initialize( fixtures ) {
+	const fixtureSelect = document.getElementById( 'fixture' );
+
+	fixtureSelect.addEventListener( 'change', async function() {
+		const textFixture = await fetch( `/fixtures/${ fixtureSelect.value }.txt` )
+			.then( response => response.text() )
+			.then( text => setCanvasText( document.getElementById( 'canvasElement' ), text ) );
+
+		console.log('fetched text', textFixture);
+	} );
+}
+
+function addListeners( fixtures ) {
+	document.getElementById( 'browser-name' ).value = navigator.appName;
+
+	const fixtureSelect = document.getElementById( 'fixture' );
+
+	for ( const fixtureName of fixtures ) {
+		fixtureSelect.options.add( new Option( fixtureName, fixtureName ) );
+	}
+}
+
+function setCanvasText( canvas, textToBeWritten ) {
 	const ctx = canvas.getContext( '2d' );
+
+	ctx.clearRect( 0, 0, CANVAS_SIZE.width, CANVAS_SIZE.height );
+
 	applyStandardFontSettings( ctx );
 	fillMultilineText( ctx, textToBeWritten, CANVAS_SIZE.width - 20, 10 );
-} );
+
+	return textToBeWritten;
+}
 
 // A primitive implementation of filling a given context with text.
 function fillMultilineText( ctx, text, maxWidth, xMargin ) {
