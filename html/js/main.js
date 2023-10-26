@@ -12,11 +12,11 @@ document.addEventListener( 'DOMContentLoaded', async function() {
 
 	changeResolution( canvas, DPI_RATIO );
 
-	setCanvasText( canvas, textToBeWritten );
-
-
 	addListeners( fixtures );
 	initialize( fixtures );
+
+	// Force loading in the first fixture.
+	document.getElementById( 'fixture' ).dispatchEvent( new Event( 'change' ) );
 } );
 
 function initialize( fixtures ) {
@@ -34,7 +34,7 @@ function initialize( fixtures ) {
 }
 
 function addListeners( fixtures ) {
-	document.getElementById( 'browser-name' ).value = navigator.appName;
+	document.getElementById( 'browser-name' ).value = getRealBrowserName();
 
 	const fixtureSelect = document.getElementById( 'fixture' );
 
@@ -43,7 +43,8 @@ function addListeners( fixtures ) {
 	}
 
 	document.getElementById( 'download-button' ).addEventListener( 'click', function() {
-		downloadCanvas( document.getElementById( 'canvasElement' ), 'download.png' );
+		const fileName = `${ document.getElementById( 'browser-name' ).value }-${ fixtureSelect.value }.png`;
+		downloadCanvas( document.getElementById( 'canvasElement' ), fileName );
 	} );
 }
 
@@ -111,4 +112,17 @@ function changeResolution( canvas, scaleFactor ) {
 	canvas.height = Math.ceil( canvas.height * scaleFactor );
 	var ctx = canvas.getContext( '2d' );
 	ctx.scale( scaleFactor, scaleFactor );
+}
+
+function getRealBrowserName() {
+	const userAgent = navigator.userAgent;
+	const browsers = [ 'Chrome', 'Firefox', 'Safari', 'Opera', 'MSIE', 'Trident', 'Edge' ];
+
+	for ( const browser of browsers ) {
+		if ( userAgent.indexOf( browser ) > -1 ) {
+			return browser;
+		}
+	}
+
+	return 'unknown';
 }
