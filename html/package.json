@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "http-server -o",
+    "start": "http-server .. -o /html",
     "test": "karma start --single-run --no-auto-watch karma.conf.js",
     "test:watch": "karma start karma.conf.js",
     "test-dev:watch": "karma start --browsers Chrome karma.conf.js"
