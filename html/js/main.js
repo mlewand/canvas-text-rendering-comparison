@@ -2,7 +2,7 @@ const CANVAS_SIZE = { width: 1000, height: 10000 };
 
 onDocumentAndFontReady().then( function() {
 	const DPI_RATIO = 3;
-	const fixtures = [ 'dummy-short', 'lorem-ipsum-short', 'english-long', 'chinese-medium', 'arabic-ligatures-short' ];
+	const fixtures = [ 'dummy-short', 'lorem-ipsum-short', 'english-long', 'english-long-safe-chars', 'chinese-medium', 'arabic-ligatures-short' ];
 	const textToBeWritten = 'Hello World Nisi nisi veniam consequat nulla dolor. Nostrud cillum deserunt aliquip. Nulla duis amet irure ad sunt consequat eu eiusmod veniam labore. Excepteur commodo incididunt in nulla dolor commodo velit. Sit labore magna occaecat ex esse in duis est consequat mollit elit proident proident. Officia sunt exercitation reprehenderit ad sint amet dolor consequat esse et pariatur aliqua.!';
 
 	const canvas = document.getElementById( 'canvasElement' );

@@ -1,0 +1,12 @@
+# english-long-safe-chars fixture info
+
+A safer version of `english-long.txt` fixture.
+
+Only characters matching following criteria were allowed:
+
+* latin alphabet characters,
+* arabic numbers (0-9),
+* spacing (space character, new line, carriage return, tab character)
+* any of following characters: []{};':",.<>/?`!@#$%^&*()_+=-~
+
+Any other character was removed.
