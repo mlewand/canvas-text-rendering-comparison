@@ -15,7 +15,7 @@ function createCanvasElement( { parent, size } ) {
 }
 
 function applyStandardFontSettings( ctx ) {
-	ctx.font = '14px CustomCanvasFont';
+	ctx.font = '14px CustomCanvasFont, sans-serif';
 	ctx.textAlign = 'start';
 }
 
