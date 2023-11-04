@@ -4,6 +4,23 @@
 	display: block;
 }
 
+html {
+	padding-top: 30px;
+}
+
+#dump-file-name {
+	min-width: 330px;
+}
+
+#configuration {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	outline: 2px solid black;
+	background: rgba(255, 255, 255, 0.7);
+}
+
 @font-face {
 	/* Using a custom font to ensure that EXACTLY the same font is used across the clients. */
 	font-family: 'CustomCanvasFont';

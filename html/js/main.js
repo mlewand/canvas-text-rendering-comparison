@@ -1,6 +1,5 @@
-const CANVAS_SIZE = { width: 1000, height: 5000 };
+const CANVAS_SIZE = { width: 1000, height: 10000 };
 
-// document.addEventListener( 'DOMContentLoaded', async function() {
 onDocumentAndFontReady().then( function() {
 	const DPI_RATIO = 3;
 	const fixtures = [ 'dummy-short', 'lorem-ipsum-short', 'english-long', 'chinese-medium', 'arabic-ligatures-short' ];
@@ -29,14 +28,14 @@ function initialize( fixtures ) {
 			.then( response => response.text() )
 			.then( text => setCanvasText( document.getElementById( 'canvasElement' ), text ) );
 
-		console.log('fetched text', textFixture);
+		document.getElementById( 'dump-file-name' ).value = getFixtureFileName();
 	} );
 
 	fixtureSelect.focus();
 }
 
 function addListeners( fixtures ) {
-	document.getElementById( 'browser-name' ).value = getRealBrowserName();
+	document.getElementById( 'dump-file-name' ).value = getFixtureFileName();
 
 	const fixtureSelect = document.getElementById( 'fixture' );
 
@@ -45,7 +44,7 @@ function addListeners( fixtures ) {
 	}
 
 	document.getElementById( 'download-button' ).addEventListener( 'click', function() {
-		const fileName = `${ fixtureSelect.value }-${ document.getElementById( 'browser-name' ).value.toLowerCase() }.png`;
+		const fileName = `${ document.getElementById( 'dump-file-name' ).value }.png`;
 		downloadCanvas( document.getElementById( 'canvasElement' ), fileName );
 	} );
 }
@@ -111,15 +110,85 @@ function changeResolution( canvas, scaleFactor ) {
 	ctx.scale( scaleFactor, scaleFactor );
 }
 
-function getRealBrowserName() {
-	const userAgent = navigator.userAgent;
-	const browsers = [ 'Chrome', 'Firefox', 'Safari', 'Opera', 'MSIE', 'Trident', 'Edge' ];
+// Returns name like 'english-long__Chrome_118.0.5993.117__Windows10'.
+function getFixtureFileName() {
+	const info = getBrowserInfo();
+	let nameParts = [];
 
-	for ( const browser of browsers ) {
-		if ( userAgent.indexOf( browser ) > -1 ) {
-			return browser;
+	if ( document.getElementById( 'fixture' ).value ) {
+		nameParts.push( document.getElementById( 'fixture' ).value );
+	}
+
+	nameParts.push( `${ info.name }_${ info.version }`, `${ info.os.name }${ info.os.version ? '_' + info.os.version : '' }`);
+
+	return nameParts.join( '__' );
+}
+
+function getBrowserInfo() {
+	const userAgent = navigator.userAgent;
+
+	// Define browsers with regex to capture version
+	const browserRegexes = [
+		{ name: 'Edge', regex: /Edge\/(\d+\.\d+)/ },
+		{ name: 'Chrome', regex: /Chrome\/(\d+\.\d+)/ },
+		{ name: 'Firefox', regex: /Firefox\/(\d+\.\d+)/ },
+		{ name: 'Safari', regex: /Version\/(\d+\.\d+).*Safari/ },
+		{ name: 'Opera', regex: /OPR\/(\d+\.\d+)/ },
+		{ name: 'MSIE', regex: /MSIE (\d+\.\d+);/ },
+		{ name: 'Trident', regex: /Trident\/.*rv:(\d+\.\d+)/ }, // For IE 11
+	];
+
+	// Detect browser and version
+	for ( const { name, regex } of browserRegexes ) {
+		const match = userAgent.match( regex );
+		if ( match ) {
+			const version = match[ 1 ];
+			return {
+				name: name,
+				version: version,
+				os: getOS()
+			};
 		}
 	}
 
-	return 'unknown';
+	return {
+		name: 'unknown',
+		version: 'unknown',
+		os: getOS()
+	};
 }
+
+// Helper function to detect OS
+function getOS() {
+	const osRegexes = [
+		{ name: 'Windows10', regex: /Windows NT 10.0/ },
+		{ name: 'Windows8.1', regex: /Windows NT 6.3/ },
+		{ name: 'Windows8', regex: /Windows NT 6.2/ },
+		{ name: 'Windows7', regex: /Windows NT 6.1/ },
+		{ name: 'MacOS', regex: /Mac OS X (\d+_\d+)/ },
+		{ name: 'MacOS', regex: /Intel Mac OS X (\d+.\d+)/ }, // Firefox
+		{ name: 'Linux', regex: /Linux/ },
+		{ name: 'Android', regex: /Android (\d+\.\d+)/ },
+		{ name: 'iOS', regex: /iPhone OS (\d+_\d+)/ },
+	];
+
+	// Detect OS
+	for ( const { name, regex } of osRegexes ) {
+		const match = navigator.userAgent.match( regex );
+		if ( match ) {
+			return {
+				name: name,
+				version: match[ 1 ] ? match[ 1 ].replace( /_/g, '.' ) : ''
+			};
+		}
+	}
+
+	// Fallback if OS is not detected
+	return {
+		name: navigator.platform,
+		version: 'unknown'
+	};
+}
+
+// Example use
+console.log( getBrowserInfo() );

@@ -30,7 +30,3 @@ describe( 'main', function() {
 		} );
 	} );
 } );
-
-function addCanvasElement() {
-
-}
