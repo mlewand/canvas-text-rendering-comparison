@@ -1,4 +1,4 @@
-const CANVAS_SIZE = { width: 1000, height: 300 };
+const CANVAS_SIZE = { width: 1000, height: 5000 };
 
 document.addEventListener( 'DOMContentLoaded', async function() {
 	const DPI_RATIO = 3;
@@ -44,7 +44,7 @@ function addListeners( fixtures ) {
 	}
 
 	document.getElementById( 'download-button' ).addEventListener( 'click', function() {
-		const fileName = `${ document.getElementById( 'browser-name' ).value }-${ fixtureSelect.value }.png`;
+		const fileName = `${ fixtureSelect.value }-${ document.getElementById( 'browser-name' ).value.toLowerCase() }.png`;
 		downloadCanvas( document.getElementById( 'canvasElement' ), fileName );
 	} );
 }
