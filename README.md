@@ -2,6 +2,17 @@
 
 A research comparing canvas output across different platforms.
 
+## Web platform
+
+```sh
+clone https://github.com/mlewand/canvas-text-rendering-comparison.git
+cd canvas-text-rendering-comparison/html
+yarn install
+yarn start
+```
+
+This will open your web browser to a canvas playground page.
+
 ## Image comparing
 
 You can use [Image Magick's CLI compare function](https://imagemagick.org/script/compare.php).
