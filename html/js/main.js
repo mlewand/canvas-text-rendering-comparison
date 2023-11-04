@@ -1,6 +1,7 @@
 const CANVAS_SIZE = { width: 1000, height: 5000 };
 
-document.addEventListener( 'DOMContentLoaded', async function() {
+// document.addEventListener( 'DOMContentLoaded', async function() {
+onDocumentAndFontReady().then( function() {
 	const DPI_RATIO = 3;
 	const fixtures = [ 'dummy-short', 'lorem-ipsum-short', 'english-long', 'chinese-medium', 'arabic-ligatures-short' ];
 	const textToBeWritten = 'Hello World Nisi nisi veniam consequat nulla dolor. Nostrud cillum deserunt aliquip. Nulla duis amet irure ad sunt consequat eu eiusmod veniam labore. Excepteur commodo incididunt in nulla dolor commodo velit. Sit labore magna occaecat ex esse in duis est consequat mollit elit proident proident. Officia sunt exercitation reprehenderit ad sint amet dolor consequat esse et pariatur aliqua.!';
@@ -95,11 +96,6 @@ function fillMultilineText( ctx, text, maxWidth, xMargin ) {
 	}
 
 	ctx.fillText( currentLine, xMargin, currentY );
-}
-
-function applyStandardFontSettings( ctx ) {
-	ctx.font = '14px serif';
-	ctx.textAlign = 'start';
 }
 
 // Based on https://stackoverflow.com/questions/14488849/higher-dpi-graphics-with-html5-canvas;

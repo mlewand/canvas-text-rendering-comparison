@@ -3,3 +3,11 @@
 	margin: 0 auto;
 	display: block;
 }
+
+@font-face {
+	/* Using a custom font to ensure that EXACTLY the same font is used across the clients. */
+	font-family: 'CustomCanvasFont';
+	/* src: url('/fonts/Roboto-MediumItalic.woff2') format('woff2'); */
+	src: url('/fonts/Roboto-Regular.woff2') format('woff2');
+	font-display: block; /* Causes the text be invisible until the custom font loads */
+}
