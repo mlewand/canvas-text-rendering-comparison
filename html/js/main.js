@@ -24,7 +24,7 @@ function initialize( fixtures ) {
 	const fixtureSelect = document.getElementById( 'fixture' );
 
 	fixtureSelect.addEventListener( 'change', async function() {
-		const textFixture = await fetch( `/fixtures/${ fixtureSelect.value }.txt` )
+		const textFixture = await fetch( `../fixtures/${ fixtureSelect.value }.txt` )
 			.then( response => response.text() )
 			.then( text => setCanvasText( document.getElementById( 'canvasElement' ), text ) );
 
