@@ -49,6 +49,8 @@ function initialize( fixtures ) {
 		currentStrategy.drawText( currentText );
 
 		rendererSelect.disabled = false;
+
+		document.getElementById( 'dump-file-name' ).value = getFixtureFileName();
 	} );
 
 	fixtureSelect.focus();
@@ -97,25 +99,28 @@ function addListeners( fixtures ) {
 	} );
 }
 
-function downloadCanvas( canvas, filename ) {
+async function downloadCanvas( canvas, filename ) {
 	const link = document.createElement( 'a' );
 	link.download = filename;
-	link.href = canvas.toDataURL( 'image/png' );
+	link.href = await currentStrategy.getImageUrl();
 	link.click();
 };
 
 // Returns name like 'english-long__Chrome_118.0.5993.117__Windows10'.
 function getFixtureFileName() {
 	const info = getBrowserInfo();
-	let nameParts = [];
+	let nameParts = [ currentStrategy.name ];
 
 	if ( document.getElementById( 'fixture' ).value ) {
 		nameParts.push( document.getElementById( 'fixture' ).value );
 	}
 
-	nameParts.push( `${info.name}_${info.version}`, `${info.os.name}${info.os.version ? '_' + info.os.version : ''}` );
+	nameParts.push(
+		`${info.name}_${info.version}`,
+		`${info.os.name}${info.os.version ? '_' + info.os.version : ''}`
+	);
 
-	return nameParts.join( '__' );
+	return nameParts.join( '__' ).replace( /\s+/, '-' );
 }
 
 function getBrowserInfo() {
