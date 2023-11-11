@@ -21,3 +21,5 @@ You can use [Image Magick's CLI compare function](https://imagemagick.org/script
 magick compare lorem-ipsum-short-chrome.png lorem-ipsum-short-safari.png lorem-ipsum-short__diff-chrome-safari.png
 magick compare lorem-ipsum-short-chrome.png lorem-ipsum-short-firefox.png lorem-ipsum-short__diff-chrome-ff.png
 ```
+
+I recommend also using ImageDiff app from AppStore to compare two images side by side (I find "wiper" compare mode to be the best).

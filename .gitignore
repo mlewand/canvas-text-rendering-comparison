@@ -1,3 +1,5 @@
 .vscode/
-*/.DB_STORE
+**/.DS_Store
+.DS_Store
 html/node_modules
+fixture-sanitizer.js
