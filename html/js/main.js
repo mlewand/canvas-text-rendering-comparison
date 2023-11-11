@@ -1,21 +1,34 @@
 const CANVAS_SIZE = { width: 1000, height: 10000 };
+const FONT_NAME = 'Roboto';
+// const FONT_NAME = 'Snippet'; // good for catching differences, letters fgt are particularly unique.
 
 function setupPixi() {
-	const app = new PIXI.Application({ background: '#1099bb', resizeTo: window });
+
+
+	// const canvas = document.getElementById( 'canvasElement' );
+	// const DPI_RATIO = 3;
+	// changeResolution( canvas, DPI_RATIO );
+	// const app = new PIXI.Application({ background: '#1099bb', view: document.getElementById( 'canvasElement' ) });
+
+	const app = new PIXI.Application({ background: '#fff', /* resizeTo: window */ });
+
+	app.renderer.resize( CANVAS_SIZE.width, CANVAS_SIZE.height );
 
 	app.view.style.display = 'none';
 	app.view.id = 'canvasElement';
-
+	// setCanvasGeometry( app.view );
 	document.getElementById( 'canvasElement' ).replaceWith( app.view );
 
 	// Load them google fonts before starting...
 	window.WebFontConfig = {
 		google: {
-			families: [ 'Snippet' ],
+			families: [ FONT_NAME ],
 		},
 		active() {
+			setCanvasGeometry( app.view );
 			init();
-			app.view.style.display = 'block';
+
+			setFinalCanvasStyling( app.view );
 		},
 	};
 
@@ -33,18 +46,29 @@ function setupPixi() {
 	/* eslint-enabled */
 
 	function init() {
-		// create some white text using the Snippet webfont
+		// create some white text using a custom webfont.
 		const textSample = new PIXI.Text(
 			'PixiJS text using the\ncustom "Snippet" Webfont\nsdaHello World Nisi nisi veniam consequat nulla dolor. Nostrud cillum deserunt aliquip. Nulla duis amet irure ad sunt consequat eu eiusmod veniam labore. Excepteur commodo incididunt in nulla dolor commodo velit. Sit labore magna occaecat ex esse in duis est consequat mollit elit proident proident. Officia sunt exercitation reprehenderit ad sint amet dolor consequat esse et pariatur aliqua.!', {
-			fontFamily: 'Snippet',
-			fontSize: 50,
-			fill: 'white',
+			fontFamily: FONT_NAME,
+			fontSize: '14px',
+			fill: 'black',
 			align: 'left',
+			wordWrap: true,
+			wordWrapWidth: CANVAS_SIZE.width
 		}
 		);
-		textSample.position.set( 50, 200 );
+		textSample.position.set( 0, 50 );
 		app.stage.addChild( textSample );
 	}
+}
+
+function setCanvasGeometry( canvas ) {
+	canvas.width = CANVAS_SIZE.width;
+	canvas.height = CANVAS_SIZE.height;
+}
+
+function setFinalCanvasStyling( canvas ) {
+	canvas.style.display = 'block';
 }
 
 onDocumentAndFontReady().then( function() {
@@ -56,10 +80,9 @@ onDocumentAndFontReady().then( function() {
 	const textToBeWritten = 'Hello World Nisi nisi veniam consequat nulla dolor. Nostrud cillum deserunt aliquip. Nulla duis amet irure ad sunt consequat eu eiusmod veniam labore. Excepteur commodo incididunt in nulla dolor commodo velit. Sit labore magna occaecat ex esse in duis est consequat mollit elit proident proident. Officia sunt exercitation reprehenderit ad sint amet dolor consequat esse et pariatur aliqua.!';
 
 	const canvas = document.getElementById( 'canvasElement' );
-	canvas.width = CANVAS_SIZE.width;
-	canvas.height = CANVAS_SIZE.height;
-	canvas.style.display = 'block';
+	setFinalCanvasStyling( canvas );
 
+	setCanvasGeometry( canvas );
 	changeResolution( canvas, DPI_RATIO );
 
 	addListeners( fixtures );
@@ -157,7 +180,12 @@ function changeResolution( canvas, scaleFactor ) {
 	canvas.width = Math.ceil( canvas.width * scaleFactor );
 	canvas.height = Math.ceil( canvas.height * scaleFactor );
 	var ctx = canvas.getContext( '2d' );
-	ctx.scale( scaleFactor, scaleFactor );
+
+	if ( ctx ) {
+		ctx.scale( scaleFactor, scaleFactor );
+	} else {
+		console.warn( 'changeResolution(): Could not get canvas context.' );
+	}
 }
 
 // Returns name like 'english-long__Chrome_118.0.5993.117__Windows10'.
