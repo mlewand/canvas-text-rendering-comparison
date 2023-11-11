@@ -1,6 +1,56 @@
 const CANVAS_SIZE = { width: 1000, height: 10000 };
 
+function setupPixi() {
+	const app = new PIXI.Application({ background: '#1099bb', resizeTo: window });
+
+	app.view.style.display = 'none';
+	app.view.id = 'canvasElement';
+
+	document.getElementById( 'canvasElement' ).replaceWith( app.view );
+
+	// Load them google fonts before starting...
+	window.WebFontConfig = {
+		google: {
+			families: [ 'Snippet' ],
+		},
+		active() {
+			init();
+			app.view.style.display = 'block';
+		},
+	};
+
+	/* eslint-disable */
+	// include the web-font loader script
+	( function() {
+		const wf = document.createElement( 'script' );
+		wf.src = `${document.location.protocol === 'https:' ? 'https' : 'http'
+			}://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js`;
+		wf.type = 'text/javascript';
+		wf.async = 'true';
+		const s = document.getElementsByTagName( 'script' )[ 0 ];
+		s.parentNode.insertBefore( wf, s );
+	}() );
+	/* eslint-enabled */
+
+	function init() {
+		// create some white text using the Snippet webfont
+		const textSample = new PIXI.Text(
+			'PixiJS text using the\ncustom "Snippet" Webfont\nsdaHello World Nisi nisi veniam consequat nulla dolor. Nostrud cillum deserunt aliquip. Nulla duis amet irure ad sunt consequat eu eiusmod veniam labore. Excepteur commodo incididunt in nulla dolor commodo velit. Sit labore magna occaecat ex esse in duis est consequat mollit elit proident proident. Officia sunt exercitation reprehenderit ad sint amet dolor consequat esse et pariatur aliqua.!', {
+			fontFamily: 'Snippet',
+			fontSize: 50,
+			fill: 'white',
+			align: 'left',
+		}
+		);
+		textSample.position.set( 50, 200 );
+		app.stage.addChild( textSample );
+	}
+}
+
 onDocumentAndFontReady().then( function() {
+	setupPixi();
+	return;
+
 	const DPI_RATIO = 3;
 	const fixtures = [ 'dummy-short', 'lorem-ipsum-short', 'english-long', 'english-long-safe-chars', 'chinese-medium', 'arabic-ligatures-short' ];
 	const textToBeWritten = 'Hello World Nisi nisi veniam consequat nulla dolor. Nostrud cillum deserunt aliquip. Nulla duis amet irure ad sunt consequat eu eiusmod veniam labore. Excepteur commodo incididunt in nulla dolor commodo velit. Sit labore magna occaecat ex esse in duis est consequat mollit elit proident proident. Officia sunt exercitation reprehenderit ad sint amet dolor consequat esse et pariatur aliqua.!';
