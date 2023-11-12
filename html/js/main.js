@@ -14,7 +14,7 @@ let currentText = null;
 onDocumentAndFontReady().then( async function() {
 	await setRenderingStrategy( defaultStrategy );
 
-	const fixtures = [ 'dummy-short', 'lorem-ipsum-short', 'english-long', 'english-long-safe-chars', 'chinese-medium', 'arabic-ligatures-short' ];
+	const fixtures = [ 'dummy-short', 'lorem-ipsum-short', 'english-long', 'english-long-safe-chars', 'english-long-safe-chars-no-line-breaks', 'chinese-medium', 'arabic-ligatures-short' ];
 
 	addListeners( fixtures );
 	initialize( fixtures );
