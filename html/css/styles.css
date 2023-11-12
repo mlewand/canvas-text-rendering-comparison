@@ -39,7 +39,7 @@ html {
 @font-face {
 	/* @todo: for some reason div#canvas would not pick 'CustomSnippet' used for canvas. */
 	font-family: 'DomCustomSnippet';
-	src: url('/fonts/Snippet-Regular.woff2') format('woff2');
+	src: url('https://mlewand.github.io/canvas-text-rendering-comparison/fonts/Snippet-Regular.woff2') format('woff2');
 	font-style: normal;
 	font-weight: 400; /* Normal weight */
 }
