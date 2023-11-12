@@ -1,3 +1,5 @@
 # english-long-safe-chars-no-line-breaks fixture info
 
-Based on `english-long-safe-chars-no-line-breaks.txt` but with new line changed to spaces.
+Based on `english-long-safe-chars-no-line-breaks.txt` but with new line changed to spaces & reduced content.
+
+Content has been reduced by 47931 characters (~half of a length) to fit 5000 pixel height document. Without this Firefox on Macbook pro couldn't render it (not enough gpu memory?).
