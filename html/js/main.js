@@ -63,7 +63,7 @@ function drawText( text, strategy ) {
 	const endTime = performance.now();
 
 	const roundedDiff = Math.floor( ( endTime - startTime ) * 1000 ) / 1000;
-	document.getElementById( 'status-text' ).innerHTML = `Last draw took <strong>${ roundedDiff  }</strong> diff ms.`;
+	console.log( `Last draw took ${ roundedDiff  }ms` );
 }
 
 async function setRenderingStrategy( newStrategy ) {
