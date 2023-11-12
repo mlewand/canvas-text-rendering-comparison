@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Canvas HTML playground</title>
 	<link rel="stylesheet" href="css/styles.css">
+	<script src="https://pixijs.download/release/pixi.js"></script>
 </head>
 <body>
 	<div id="configuration">
@@ -12,9 +13,14 @@
 		</select>
 		<input type="text" name="dump-file-name" id="dump-file-name">
 		<button id="download-button">Download image dump</button>
+		Driver:
+		<select name="driver" id="driver">
+			<!-- <option value="canvas">Canvas</option>
+			<option value="webgl">WebGL</option> -->
+		</select>
 	</div>
-	<canvas id="canvasElement" style="display: none;"></canvas>
+	<div id="render-area"></div>
 	<script src="js/common.js"></script>
-	<script src="js/main.js"></script>
+	<script src="js/main.js" type="module"></script>
 </body>
 </html>
