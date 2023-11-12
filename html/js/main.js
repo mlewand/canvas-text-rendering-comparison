@@ -120,7 +120,7 @@ function getFixtureFileName() {
 		`${info.os.name}${info.os.version ? '_' + info.os.version : ''}`
 	);
 
-	return nameParts.join( '__' ).replace( /\s+/, '-' );
+	return nameParts.join( '__' ).replace( /\s+/g, '-' );
 }
 
 function getBrowserInfo() {
