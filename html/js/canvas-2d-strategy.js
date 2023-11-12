@@ -84,7 +84,7 @@ function setCanvasText( canvas, textToBeWritten ) {
 	const margin = 0;
 	const lineHeight = 17;
 
-	applyStandardFontSettings( ctx );
+	applyStandardFontSettings( ctx, FONT_NAME );
 	fillMultilineText( ctx, textToBeWritten, CANVAS_SIZE.width - ( 2 * margin ), margin, lineHeight );
 
 	return textToBeWritten;

@@ -23,8 +23,15 @@ html {
 
 @font-face {
 	/* Using a custom font to ensure that EXACTLY the same font is used across the clients. */
-	font-family: 'CustomCanvasFont', sans-serif;
+	font-family: 'CustomRoboto', sans-serif;
 	/* src: url('/fonts/Roboto-MediumItalic.woff2') format('woff2'); */
 	src: url('/fonts/Roboto-Regular.woff2') format('woff2');
+	font-display: block; /* Causes the text be invisible until the custom font loads */
+}
+
+@font-face {
+	/* Using a custom font to ensure that EXACTLY the same font is used across the clients. */
+	font-family: 'CustomSnippet', sans-serif;
+	src: url('/fonts/Snippet-Regular.woff2') format('woff2');
 	font-display: block; /* Causes the text be invisible until the custom font loads */
 }

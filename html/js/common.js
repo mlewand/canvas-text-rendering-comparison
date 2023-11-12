@@ -14,8 +14,12 @@ function createCanvasElement( { parent, size } ) {
 	return canvas;
 }
 
-function applyStandardFontSettings( ctx ) {
-	ctx.font = '14px CustomCanvasFont, sans-serif';
+function applyStandardFontSettings( ctx, fontName ) {
+	if ( !fontName ) {
+		fontName = 'CustomRoboto'; // backward compatibility.
+	}
+
+	ctx.font = `14px ${ fontName }, sans-serif`;
 	ctx.textAlign = 'start';
 }
 
@@ -25,11 +29,18 @@ function onDocumentAndFontReady() {
 			alert( 'Your browser does not support the Font Loading API. Please use a newer browser.' );
 			reject();
 		} else {
-			document.addEventListener( 'DOMContentLoaded', async function() {
-				document.fonts.load( '14px CustomCanvasFont' ).then( function() {
-					resolve();
-				} );
-			} );
+			Promise.all( [ loadFontPromise( 'CustomRoboto' ), loadFontPromise( 'CustomSnippet' ) ] )
+				.then( resolve );
 		}
+	} );
+}
+
+function loadFontPromise( fontName ) {
+	return new Promise( function( resolve, reject ) {
+		document.addEventListener( 'DOMContentLoaded', async function() {
+			document.fonts.load( `14px ${ fontName }` ).then( function() {
+				resolve();
+			} );
+		} );
 	} );
 }
