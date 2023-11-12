@@ -18,11 +18,7 @@ export default {
 	},
 
 	async init() {
-		if ( !this.initialized ) {
-			this.initialized = true;
-		}
-
-		if ( this.app ) {
+		if ( this.canvas ) {
 			await this.destroy();
 		}
 

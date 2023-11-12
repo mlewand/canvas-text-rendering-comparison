@@ -3,8 +3,9 @@ import { CANVAS_SIZE, FONT_NAME } from './constants.js';
 
 import pixiWebglStrategy from './pixi-webgl-strategy.js';
 import canvas2dStrategy from './canvas-2d-strategy.js';
+import htmlDomStrategy from './html-dom-strategy.js';
 
-const renderingStrategies = [ pixiWebglStrategy, canvas2dStrategy ];
+const renderingStrategies = [ pixiWebglStrategy, canvas2dStrategy, htmlDomStrategy ];
 
 const defaultStrategy = pixiWebglStrategy;
 // const defaultStrategy = canvas2dStrategy;
