@@ -24,7 +24,7 @@ export default {
 	},
 
 	async getImageUrl() {
-		return "javascript:alert('Not implemented yet')";
+		return "javascript:alert('This one is not implemented yet, sorry :(')";
 	},
 
 	drawText( text ) {

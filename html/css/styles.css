@@ -40,9 +40,23 @@ html {
 	/* @todo: for some reason div#canvas would not pick 'CustomSnippet' used for canvas. */
 	font-family: 'DomCustomSnippet';
 	src: url('/fonts/Snippet-Regular.woff2') format('woff2');
+	font-style: normal;
+	font-weight: 400; /* Normal weight */
 }
 
 div#canvasElement {
 	font-family: 'DomCustomSnippet', serif;
 	font-size: 14px;
+
+	font-size: 14px; /* Set to 14px */
+	font-style: normal;
+	font-weight: 400; /* Normal weight */
+	line-height: 1.6; /* Adjust as needed */
+	letter-spacing: normal; /* Adjust as needed */
+	text-align: justify; /* or left, right, center */
+	word-wrap: break-word;
+	word-break: normal;
+	-webkit-font-smoothing: antialiased; /* For Webkit browsers */
+	-moz-osx-font-smoothing: grayscale; /* For Firefox on Mac OS */
+	text-rendering: optimizeSpeed; /* Will disable kerning & ligatures for more consistent layout */
 }
