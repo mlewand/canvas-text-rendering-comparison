@@ -33,7 +33,7 @@ function initialize( fixtures ) {
 			.then( response => response.text() )
 			.then( text => {
 				currentText = text;
-				currentStrategy.drawText( currentText );
+				drawText( currentText, currentStrategy );
 			 } );
 
 		document.getElementById( 'dump-file-name' ).value = getFixtureFileName();
@@ -46,7 +46,7 @@ function initialize( fixtures ) {
 
 		await setRenderingStrategy( newStrategy );
 
-		currentStrategy.drawText( currentText );
+		drawText( currentText, currentStrategy );
 
 		rendererSelect.disabled = false;
 
@@ -54,6 +54,15 @@ function initialize( fixtures ) {
 	} );
 
 	fixtureSelect.focus();
+}
+
+function drawText( text, strategy ) {
+	const startTime = performance.now();
+	strategy.drawText( text );
+	const endTime = performance.now();
+
+	const roundedDiff = Math.floor( ( endTime - startTime ) * 1000 ) / 1000;
+	document.getElementById( 'status-text' ).innerHTML = `Last draw took <strong>${ roundedDiff  }</strong> diff ms.`;
 }
 
 async function setRenderingStrategy( newStrategy ) {
