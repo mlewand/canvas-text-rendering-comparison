@@ -109,7 +109,7 @@ async function downloadCanvas( canvas, filename ) {
 // Returns name like 'english-long__Chrome_118.0.5993.117__Windows10'.
 function getFixtureFileName() {
 	const info = getBrowserInfo();
-	let nameParts = [ currentStrategy.name ];
+	let nameParts = [ currentStrategy.shortName ];
 
 	if ( document.getElementById( 'fixture' ).value ) {
 		nameParts.push( document.getElementById( 'fixture' ).value );

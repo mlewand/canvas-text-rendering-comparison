@@ -3,6 +3,7 @@ import { CANVAS_SIZE, FONT_NAME } from './constants.js';
 
 export default {
 	name: 'WebGL (using PixiJs)',
+	shortName: 'WebGL',
 
 	async init() {
 		if ( !this.initialized ) {

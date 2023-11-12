@@ -3,6 +3,7 @@ import { CANVAS_SIZE, FONT_NAME, DPI_RATIO } from './constants.js';
 
 export default {
 	name: 'Native Canvas 2D',
+	shortName: 'Canvas2D',
 
 	async getCanvas() {
 		const canvas = document.createElement( 'canvas' );
