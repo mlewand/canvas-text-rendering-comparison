@@ -35,3 +35,14 @@ html {
 	src: url('/fonts/Snippet-Regular.woff2') format('woff2');
 	font-display: block; /* Causes the text be invisible until the custom font loads */
 }
+
+@font-face {
+	/* @todo: for some reason div#canvas would not pick 'CustomSnippet' used for canvas. */
+	font-family: 'DomCustomSnippet';
+	src: url('/fonts/Snippet-Regular.woff2') format('woff2');
+}
+
+div#canvasElement {
+	font-family: 'DomCustomSnippet', serif;
+	font-size: 14px;
+}
