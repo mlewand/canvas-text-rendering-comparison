@@ -81,18 +81,20 @@ function setCanvasText( canvas, textToBeWritten ) {
 	ctx.fillRect( 0, 0, CANVAS_SIZE.width, CANVAS_SIZE.height );
 	ctx.fillStyle = 'black';
 
+	const margin = 0;
+	const lineHeight = 17;
+
 	applyStandardFontSettings( ctx );
-	fillMultilineText( ctx, textToBeWritten, CANVAS_SIZE.width - 20, 10 );
+	fillMultilineText( ctx, textToBeWritten, CANVAS_SIZE.width - ( 2 * margin ), margin, lineHeight );
 
 	return textToBeWritten;
 }
 
 // A primitive implementation of filling a given context with text.
-function fillMultilineText( ctx, text, maxWidth, xMargin ) {
-	const LINE_HEIGHT = 20;
+function fillMultilineText( ctx, text, maxWidth, xMargin, lineHeight ) {
 	const words = text.split( ' ' );
 	let currentLine = '';
-	let currentY = LINE_HEIGHT;
+	let currentY = lineHeight;
 	let currentX = xMargin;
 
 	for ( let i = 0; i < words.length; i++ ) {
@@ -102,7 +104,7 @@ function fillMultilineText( ctx, text, maxWidth, xMargin ) {
 		if ( currentX + wordWidth > maxWidth ) {
 			ctx.fillText( currentLine, xMargin, currentY );
 			currentLine = word;
-			currentY += LINE_HEIGHT;
+			currentY += lineHeight;
 		} else {
 			currentLine += word + ' ';
 		}
