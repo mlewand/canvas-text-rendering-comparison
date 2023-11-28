@@ -5,7 +5,7 @@ A research comparing canvas output across different platforms.
 ## Web platform
 
 ```sh
-clone https://github.com/mlewand/canvas-text-rendering-comparison.git
+git clone https://github.com/mlewand/canvas-text-rendering-comparison.git
 cd canvas-text-rendering-comparison/html
 yarn install
 yarn start
